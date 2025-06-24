@@ -1,0 +1,31 @@
+body.dark-mode {
+  background-color: #232323e8;
+  color: #f1f1f1;
+}
+
+.navbar.dark-mode,
+.dark-mode .navbar {
+  background-color: #1f1f1f !important;
+}
+
+.card.dark-mode,
+.dark-mode .card {
+  background-color: #2a2a2a;
+  color: #f1f1f1;
+}
+
+.flash.dark {
+  background-color: #333;
+  color: #fff;
+}
+.chart-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.dark-mode img.icon-dark {
+  filter: brightness(10); /* or filter: invert(1); */
+}
+.custom-dark {
+  background-color: #1f1f1f !important;
+}

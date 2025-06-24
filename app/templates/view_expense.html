@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block content %}
+<h2>Your Expenses</h2>
+<ul>
+  {% for e in expenses %}
+  <li>
+    {{ e.date }} - ₹{{ e.amount }} - {{ e.category }} - {{ e.description }}
+  </li>
+  {% endfor %}
+</ul>
+{% if not expenses %}
+<p>No expenses yet.</p>
+{% endif %} {% endblock %}

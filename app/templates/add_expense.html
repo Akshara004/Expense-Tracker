@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block content %}
+<h2>Add Expense</h2>
+<form method="POST">
+  {{ form.hidden_tag() }} {{ form.amount.label }} {{ form.amount() }}<br />
+  {{ form.category.label }} {{ form.category() }}<br />
+  {{ form.date.label }} {{ form.date() }}<br />
+  {{ form.description.label }} {{ form.description() }}<br />
+  {{ form.submit() }}
+</form>
+{% endblock %}

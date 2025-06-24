@@ -1,0 +1,101 @@
+{% extends "base.html" %} {% block title %}Summary | Budget Buddy{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <!-- Total Summary Card -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="card-title">
+        Spending Summary for {{ now.strftime('%B %Y') }}
+      </h2>
+      <h4 class="card-subtitle mt-3 text-muted">Total Spent: ₹{{ total }}</h4>
+    </div>
+  </div>
+
+  <!-- Top Categories -->
+  {% if labels|length >= 1 %}
+  <div class="mb-4 text-center">
+    <h5>Top 3 Categories</h5>
+    {% for cat in labels[:3] %}
+    <span class="badge bg-primary fs-6 mx-2">{{ cat }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Chart Card -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body text-center">
+      <h5 class="card-title">Category-wise Distribution</h5>
+      <div class="chart-container mx-auto" style="max-width: 400px">
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Bars -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5>Category Breakdown</h5>
+      {% for i in range(labels|length) %}
+      <p class="mb-1">{{ labels[i] }}: ₹{{ values[i] }}</p>
+      <div class="progress mb-3">
+        <div
+          class="progress-bar bg-success"
+          role="progressbar"
+          style="width: {{ (values[i] / total) * 100 }}%;"
+          aria-valuenow="{{ (values[i] / total) * 100 }}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          {{ ((values[i] / total) * 100) | round(1) }}%
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <div class="text-center mb-5">
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary"
+      >← Back to Dashboard</a
+    >
+  </div>
+</div>
+
+<!-- Chart.js Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const ctx = document.getElementById('categoryChart').getContext('2d');
+    const categoryChart = new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: {{ labels | tojson }},
+        datasets: [{
+          label: "Expenses by Category",
+          data: {{ values | tojson }},
+          backgroundColor: [
+            "#4caf50", "#2196f3", "#ff9800", "#f44336", "#9c27b0",
+            "#00bcd4", "#e91e63", "#3f51b5", "#795548", "#607d8b"
+          ],
+          borderWidth: 1,
+        }]
+      },
+      options: {
+        responsive: true,
+        animation: {
+          animateRotate: true,
+          animateScale: true
+        },
+        plugins: {
+          legend: {
+            position: 'bottom'
+          },
+          title: {
+            display: true,
+            text: 'Expenses by Category'
+          }
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}
