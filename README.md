@@ -39,13 +39,13 @@ A clean, full-stack **Expense Tracker** built using Python and Flask that helps 
 ## 📷 Screenshots
 
 ### 🏠 Landing Page
-![Landing Page](assets/landing.png)
+![Landing Page](app/assets/landing.png)
 
 ### 💻 Dashboard
-![Dashboard](assets/dashboard.png)
+![Dashboard](app/assets/dashboard.png)
 
 ### 📊 Summary Charts
-![Summary](assets/summary_chart.png)
+![Summary](app/assets/summary_chart.png)
 
 ---
 
